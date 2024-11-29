@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./tailwind.css" rel="stylesheet">
+    <script src="./code.js"></script>
+</head>
+<body>
+    <h1 class="text-3xl font-bold underline">
+        H&H Gilding Calculator
+    </h1>
+    <div>
+        <h2>How to use:</h2>
+        <p>Click on a slot to select it</p>
+        <p>Select a base item you want to use</p>
+    </div>
+    <div class="flex flex-row gap-8">
+        <div class="flex flex-col">
+            <div id="attr" class="border-gray-400 border-2 p-2" >
+                <table>
+                    <tr>
+                        <th>Attributes</th>
+                        <th>Base Value</th>
+                        <th>+Gear</th>
+                    </tr>
+                    <tr>
+                        <td>Strength</td>
+                        <td id="t-str"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Agility</td>
+                        <td id="t-agi"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Intelligence</td>
+                        <td id="t-int"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Perception</td>
+                        <td id="t-per"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Charisma</td>
+                        <td id="t-cha"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Dexterity</td>
+                        <td id="t-dex"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Will</td>
+                        <td id="t-wil"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Psyche</td>
+                        <td id="t-psy"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    </table>
+            </div>
+            <div id="abil" class="border-gray-400 border-2 p-2" >
+                <table>
+                    <tr>
+                        <th>Attributes</th>
+                        <th>Base Value</th>
+                        <th>+Gear</th>
+                    </tr>
+                    <tr>
+                        <td>Unarmed Combat</td>
+                        <td id="t-Unarmed-Combat"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Melee Combat</td>
+                        <td id="t-Melee-Combat"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Marksmanship</td>
+                        <td id="t-Marksmanship"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Exploration</td>
+                        <td id="t-Exploration"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Stealth</td>
+                        <td id="t-Stealth"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Sewing</td>
+                        <td id="t-Sewing"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Smithing</td>
+                        <td id="t-Smithing"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Masonry</td>
+                        <td id="t-Masonry"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Carpentry</td>
+                        <td id="t-Carpentry"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Cooking</td>
+                        <td id="t-Cooking"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Farming</td>
+                        <td id="t-Farming"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Survival</td>
+                        <td id="t-Survival"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    <tr>
+                        <td>Lore</td>
+                        <td id="t-Lore"><input class="w-14" type="number" value="1"></td>
+                    </tr>
+                    </table>
+            </div>
+        </div>
+        <div id="slots" class="border-gray-400 border-2 p-2">
+            <h2>Slots</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('1L')">
+                                <span class="absolute top-0 left-0">1L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('1R')">
+                                <span class="absolute top-0 left-0">1R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('2L')">
+                                <span class="absolute top-0 left-0">2L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('2R')">
+                                <span class="absolute top-0 left-0">2R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('3L')">
+                                <span class="absolute top-0 left-0">3L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('3R')">
+                                <span class="absolute top-0 left-0">3R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('4L')">
+                                <span class="absolute top-0 left-0">4L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('4R')">
+                                <span class="absolute top-0 left-0">4R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('5L')">
+                                <span class="absolute top-0 left-0">5L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('5R')">
+                                <span class="absolute top-0 left-0">5R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('6L')">
+                                <span class="absolute top-0 left-0">6L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('6R')">
+                                <span class="absolute top-0 left-0">6R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('7L')">
+                                <span class="absolute top-0 left-0">7L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('7R')">
+                                <span class="absolute top-0 left-0">7R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('8L')">
+                                <span class="absolute top-0 left-0">8L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('8R')">
+                                <span class="absolute top-0 left-0">8R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('9L')">
+                                <span class="absolute top-0 left-0">9L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('9R')">
+                                <span class="absolute top-0 left-0">9R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('10L')">
+                                <span class="absolute top-0 left-0">10L</span>
+                                <img id="1L-icon" src="" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center relative w-16 h-16 border-black border-2 cursor-pointer" onclick="slot_selected('10R')">
+                                <span class="absolute top-0 left-0">10R</span>
+                                <img id="1R-icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="item_maker" class="flex flex-col border-gray-400 border-2 p-2">
+            <div id="base-item">
+                <label class="border-2 border-gray-400" for="item-select">Item</label>
+                <select onchange="item_selected(this.value)" id="item-select">
+                    <option value="-1">--Please choose a slot--</option>
+                </select>
+                <table>
+                    <tr>
+                        <td>Selected slot:</td>
+                        <td class="w-16" id="selected_slot"></td>
+                        <td class="w-16">
+                            <div class="flex justify-center items-center w-16 h-16 border-black border-2">
+                                <img class="max-w-16 max-h-16" id="selected_icon" src="" alt="">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Slots:</td>
+                        <td id="selected_slots" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td>Affinity:</td>
+                        <td id="selected_affinity" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td>Min:</td>
+                        <td id="selected_chance_min"></td>
+                    </tr>
+                    <tr>
+                        <td>Max:</td>
+                        <td id="selected_chance_max"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="border-2 h-1" ></div>
+        </div>
+        <div class="flex flex-col border-gray-400 border-2 p-2">
+            <h2>Affinity</h2>
+            <select onchange="affinity_selected(this.value)" id="affinity-select">
+                <option value="-1">--Please choose an affinity--</option>
+            </select>
+            <div class="border-2 h-1" ></div>
+            <div class="flex flex-col overflow-y-scroll max-h-[80vh]">
+                <div class="">Gildings:</div>
+                <div id="gilding-results">
+                   
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
