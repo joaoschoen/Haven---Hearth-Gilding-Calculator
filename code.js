@@ -1,3 +1,4 @@
+// Here is where the data for the gildables go
 var gildables = [
     {
         "icon": "https://ringofbrodgar.com/images/1/1c/Bunny_Slippers.png",
@@ -1418,7 +1419,8 @@ var gildables = [
     }
 ]
 
-var gilds = [
+// This is where the data for the gildings go
+var gildings = [
     {
         "name": "Adder Brooch",
         "link": "https://ringofbrodgar.com/wiki/Adder_Brooch",
@@ -3197,8 +3199,8 @@ function affinity_selected(affinity){
 
 function filter_gildables_by_affinity(selection){
     let options = []
-    for (let i = 0; i < gilds.length; i++) {
-        const item = gilds[i];
+    for (let i = 0; i < gildings.length; i++) {
+        const item = gildings[i];
         for (let j = 0; j < item.affinity.length; j++) {
             const affinity = item.affinity[j];
             // rings can only be gilded by gemstones
