@@ -20,6 +20,7 @@ By the nature of me wanting to do this
 - Showing the inherit bonus that some equipments have like +1 agi for a nettle shirt
 - Adding non-gildable items to the planner
 - Adding data samples for quality of the items and what you should expect by making the item at a certain quality
+- Adding icons to replace the text for all of the attributes and abilities to make it easier to read
 
 ## How I got the data and set it up
 
