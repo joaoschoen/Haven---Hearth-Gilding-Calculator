@@ -216,22 +216,29 @@ function affinity_selected(affinity){
 
 function filter_gildables_by_affinity(selection){
     let options = []
+    let slot = window.localStorage.getItem("selected_slot")
+    let selected_item = window.localStorage.getItem("selected_item")
+    let equipment = item_select_options[selected_item]
+    if(equipment.affinity == undefined){
+        return options
+    }
     for (let i = 0; i < gilds.length; i++) {
         const item = gilds[i];
+        // Only rings can have gemstones gilded into them
+        if(slot == "7L" || slot == "7R"){
+            if(!item.isGemstone){
+                continue
+            }
+        } else {
+            if(item.isGemstone){
+                continue
+            }
+        }
+        // Affinity alignment
         for (let j = 0; j < item.affinity.length; j++) {
             const affinity = item.affinity[j];
-            // rings can only be gilded by gemstones
             if(affinity.includes(selection)){
-                slot = window.localStorage.getItem("selected_slot")
-                if(slot.includes("7L") || slot.includes("7R")){
-                    if(item.isGemstone){
-                        options.push(item)
-                    } else {
-                        continue
-                    }
-                } else {
                     options.push(item)
-                }
             }
         }
     }
