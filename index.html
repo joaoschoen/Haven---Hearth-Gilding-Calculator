@@ -277,6 +277,9 @@
                 </select>
                 <table>
                     <tr>
+                        <td><h2 class="text-2xl font-bold">Item</h2></td>
+                    </tr>
+                    <tr>
                         <td>Selected slot:</td>
                         <td class="w-16" id="selected_slot"></td>
                         <td class="w-16">
@@ -290,14 +293,38 @@
                         <td id="selected_slots" colspan="2"></td>
                     </tr>
                     <tr>
+                        <td><h2 class="text-2xl font-bold">Bonus</h2></td>
+                    </tr>
+                    <tr>
+                        <td id="selected_bonus"></td>
+                    </tr>
+                    <tr>
+                        <td><h2 class="text-2xl font-bold">Armor</h2></td>
+                    </tr>
+                    <tr>
+                        <td>HP:</td>
+                        <td id="selected_armor_hp"></td>
+                    </tr>
+                    <tr>
+                        <td>Abs X:</td>
+                        <td id="selected_armor_hp"></td>
+                    </tr>
+                    <tr>
+                        <td>Abs Y:</td>
+                        <td id="selected_armor_hp"></td>
+                    </tr>
+                    <tr>
+                        <td><h2 class="text-2xl font-bold">Gilding</h2></td>
+                    </tr>
+                    <tr >
                         <td>Affinity:</td>
                         <td id="selected_affinity" colspan="2"></td>
                     </tr>
-                    <tr>
+                    <tr id="base-item-chance_min">
                         <td>Min:</td>
                         <td id="selected_chance_min"></td>
                     </tr>
-                    <tr>
+                    <tr id="base-item-chance_max">
                         <td>Max:</td>
                         <td id="selected_chance_max"></td>
                     </tr>
@@ -319,5 +346,6 @@
             </div>
         </div>
     </div>    
+    <div class="hidden"></div>
 </body>
 </html>

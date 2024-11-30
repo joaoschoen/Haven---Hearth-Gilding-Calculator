@@ -165,11 +165,15 @@ const fs = require('fs');
         }
         merged.push(equipment)
     }
+    let code = fs.readFileSync("./code.js").toString()
+    code = code.split("// DATA")[0]
 
-    let data = "var equipment = " + JSON.stringify(merged, null, 3) 
+    let data = "// DATA\nvar equipment = " + JSON.stringify(merged, null, 3) 
     data += "\n\nvar gilds = " + JSON.stringify(gilds, null, 3)
-    fs.writeFileSync('data.js', data); 
-    console.log("Data written to data.js")
+
+    code += data
+    fs.writeFileSync('code.js', code); 
+    console.log("Data written to code.js")
 
     await browser.close();
 })();
