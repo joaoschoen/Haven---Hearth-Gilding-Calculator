@@ -63,14 +63,8 @@ function item_selected(index){
     window.localStorage.setItem("selected_item",index)
     //We check for -1 because a null option is always added to the options list
     if(index != -1){
-        // BONUS
-        if(Object.keys(item.bonus).length != 0){
-
-        } else {
-            
-        }
-        // ARMOR
         const item = item_select_options[index]
+
         const icon = document.getElementById("selected_icon")
         icon.src = item.icon
         const slots = document.getElementById("selected_slots")
@@ -80,7 +74,43 @@ function item_selected(index){
         //null option
         const option = document.createElement('option')
         option.value = -1
-
+        
+        // BONUS
+        const bonus = document.getElementById("selected_bonus")
+        bonus.innerText = ""
+        if(Object.keys(item.bonus).length != 0){
+            let keys = Object.keys(item.bonus)
+            for (let i = 0; i < keys.length; i++) {
+                let el = document.createElement("span")
+                el.innerText = "" + keys[i] + " " + item.bonus[keys[i]]
+                el.className = "p-2"
+                bonus.appendChild(el)
+            }
+        } else {
+            bonus.innerText = "No bonus"
+        }
+        // ARMOR
+        row_armor_0 = document.getElementById("row_armor_0")
+        row_armor_1 = document.getElementById("row_armor_1")
+        row_armor_2 = document.getElementById("row_armor_2")
+        row_armor_3 = document.getElementById("row_armor_3")
+        if(Object.keys(item.armor).length != 0){
+            row_armor_0.className = ""
+            row_armor_1.className = ""
+            row_armor_2.className = ""
+            row_armor_3.className = ""
+            selected_armor_hp = document.getElementById("selected_armor_hp")
+            selected_armor_hp.innerText = item.armor.hp
+            selected_armor_abs_x = document.getElementById("selected_armor_abs_x")
+            selected_armor_abs_x.innerText = item.armor.abs_x
+            selected_armor_abs_y = document.getElementById("selected_armor_abs_y")
+            selected_armor_abs_y.innerText = item.armor.abs_y
+        } else {
+            row_armor_0.className = "hidden"
+            row_armor_1.className = "hidden"
+            row_armor_2.className = "hidden"
+            row_armor_3.className = "hidden"
+        }
         // GILDING
         const affinity = document.getElementById("selected_affinity")
         const row_chance_min = document.getElementById("base-item-chance_min")
