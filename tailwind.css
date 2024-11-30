@@ -590,6 +590,10 @@ video {
   height: 4rem;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -600,6 +604,10 @@ video {
 
 .max-h-\[80vh\] {
   max-height: 80vh;
+}
+
+.w-1\/4 {
+  width: 25%;
 }
 
 .w-14 {
@@ -616,6 +624,10 @@ video {
 
 .max-w-16 {
   max-width: 4rem;
+}
+
+.max-w-5 {
+  max-width: 1.25rem;
 }
 
 .cursor-pointer {
@@ -636,6 +648,10 @@ video {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .gap-8 {
