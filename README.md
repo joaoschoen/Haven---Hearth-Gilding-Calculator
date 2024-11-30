@@ -6,7 +6,6 @@ This is going to be a simple planner for looking up what gildings you could use 
 > [!WARNING]
 > By the nature of how I made this tool to be as simple as possible it is bound to become outdated and have old information, I'll happily update the data if it is brought to my attention, if you find any data that doesn't match the wiki contact me and I'll update it as soon as possible
 
-By the nature of me wanting to do this
 
 ## Features
 
@@ -24,9 +23,9 @@ By the nature of me wanting to do this
 
 ## How I got the data and set it up
 
-I made this by web scraping extracting the data from the from the wiki using Chrome's console  and JavaScript to script the data extraction 
+I made this by web scraping extracting the data from the from the wiki using Chrome's console  and JavaScript to script the data extraction, these scripts were then put inside a scraping algorithm using Puppeteer
 
-The application has two datasets hardcoded into it, as such changes to the game will require a rerun of the scraping scripts and replacements of the data inside of the [code.js](/code.js) file.
+The application has two datasets hardcoded into it, as such changes to the game and the wiki will require a rerun of the scraping scripts to update the data inside of the [code.js](/code.js) file.
 
 ### How to update the data
 
@@ -48,6 +47,9 @@ Step 3: run the scraping algorithm
 
 Step 4: commit the changes to your branch
 - git add --all 
+- git commit -m "your commit message here"
+
+Step 5: open a pull request
 ```
 
-The scraping algorithm will then read all the data from the wiki and update the arrays in the [code.js](./code.js) file, 
+The scraping algorithm will then read all the data from the wiki and update the arrays in the [code.js](./code.js) file
