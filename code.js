@@ -128,6 +128,7 @@ function item_selected(index){
             affinity.innerHTML = "Not Gildable"
             maker_base_item_chances.className = "hidden"
         }
+        generate_maker_slots()
     }
 }
 
@@ -295,20 +296,56 @@ function generate_gildings_list(){
 }
 
 function generate_maker_slots(){
-   let base_min = parseFloat(maker_base_item.chance_min.replace("%","")) / 100
-   let base_max = parseFloat(maker_base_item.chance_max.replace("%","")) / 100
-   console.log(base_min)
-   console.log(base_max)
-   console.log(maker_base_item)
-   console.log(maker_gildings)
+   // CHECK IF ITEM IS GILDABLE
+   let base_item_gildable = (maker_base_item.affinity != undefined)
+
+   let base_min
+   let base_max
+   if(base_item_gildable){
+      base_min = parseFloat(maker_base_item.chance_min.replace("%","")) / 100
+      base_max = parseFloat(maker_base_item.chance_max.replace("%","")) / 100
+   }
+
    const maker_slots = document.getElementById("maker_slots")
    maker_slots.innerHTML = ""
    for (let i = 0; i < maker_gildings.length; i++) {
       const gild = maker_gildings[i];
-      let gild_min = parseFloat(gild.chance_min.replace("%","")) / 100
-      let gild_max = parseFloat(gild.chance_max.replace("%","")) / 100
-      console.log(gild_min)
-      console.log(gild_max)
+      let gild_min
+      let gild_max
+      let final_min_chance 
+      let final_max_chance 
+
+      if(base_item_gildable){
+         gild_min = parseFloat(gild.chance_min.replace("%","")) / 100
+         gild_max = parseFloat(gild.chance_max.replace("%","")) / 100
+      }
+         
+      // AFFINITY ALIGNMENT
+
+      let affinity_alignment = false
+      if(base_item_gildable){
+         for (let j = 0; j < maker_base_item.affinity.length; j++) {            
+            let item_affinity = maker_base_item.affinity[j]
+            for (let k = 0; k < gild.affinity.length; k++) {
+               let gild_affinity = gild.affinity[k]
+               console.log(item_affinity)
+               console.log(gild_affinity)
+               if(item_affinity == gild_affinity){
+                  affinity_alignment = true
+                  break
+               }
+            }
+            if(affinity_alignment == true){
+               break
+            }
+         }
+         final_min_chance = ((base_min * gild_min) * 100).toPrecision(2)
+         final_max_chance = ((base_max * gild_max) * 100).toPrecision(2)
+   
+         if(!affinity_alignment){         
+            final_max_chance = final_min_chance
+         }
+      }
 
       // container div
       let div = document.createElement("div")
@@ -370,11 +407,19 @@ function generate_maker_slots(){
       let row3_td1 = document.createElement("td")
       row3_td1.innerHTML = "Min:"
       let row3_td2 = document.createElement("td")
-      row3_td2.innerHTML = ((base_min * gild_min) * 100).toPrecision(2) + "%"
+      if(base_item_gildable){
+         row3_td2.innerHTML = final_min_chance + "%"
+      } else {
+         row3_td2.innerHTML = "0%"
+      }
       let row3_td3 = document.createElement("td")
       row3_td3.innerHTML = "Max:"
       let row3_td4 = document.createElement("td")
-      row3_td4.innerHTML = ((base_max * gild_max) * 100).toPrecision(2) + "%"
+      if(base_item_gildable){
+         row3_td4.innerHTML = final_max_chance + "%"
+      } else {
+         row3_td4.innerHTML = "0%"
+      }
       row3.appendChild(row3_td1)
       row3.appendChild(row3_td2)
       row3.appendChild(row3_td3)
