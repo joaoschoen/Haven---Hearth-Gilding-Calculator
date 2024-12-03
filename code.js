@@ -1,5 +1,5 @@
-// Here is where the data for the gildables go
-var item_select_options = [{
+// ITEM
+var maker_item_select_options = [{
     "name": "--Please select an item--",
     "icon":"",
     "link": "#",
@@ -11,7 +11,10 @@ var item_select_options = [{
     "slot": [
     ]
 },]
+var maker_gildings = []
+var maker_base_item = {}
 
+// GILDING
 var gilding_select_options = []
 var gilding_affinity_filter = []
 var gilding_option_list = []
@@ -25,10 +28,10 @@ function generate_options_for_item_select(){
     option.textContent = "--Please select an item--"
     item_select.appendChild(option)
     //real options
-    item_select_options.forEach((value,index) =>{
+    maker_item_select_options.forEach((value,index) =>{
         const option = document.createElement('option')
         option.value = index
-        option.textContent = item_select_options[index].name
+        option.textContent = maker_item_select_options[index].name
         item_select.appendChild(option)
     })
 }
@@ -54,57 +57,57 @@ function slot_selected(selection){
     const selected_slot = document.getElementById("selected_slot")
     selected_slot.innerHTML = selection
 
-    item_select_options = filter_equipment_by_slot(selection)
-    item_select_options = item_select_options.sort((a,b)=>{
+    maker_item_select_options = filter_equipment_by_slot(selection)
+    maker_item_select_options = maker_item_select_options.sort((a,b)=>{
         return a.name[0] > b.name[0] ? 1 : -1
     })
     generate_options_for_item_select()
 }
 
 function item_selected(index){
-    window.localStorage.setItem("selected_item",index)
+    window.localStorage.setItem("maker_selected_item",index)
     //We check for -1 because a null option is always added to the options list
     if(index != -1){
-        const item = item_select_options[index]
+        maker_base_item = maker_item_select_options[index]
 
-        const icon = document.getElementById("selected_icon")
-        icon.src = item.icon
-        const slots = document.getElementById("selected_slots")
-        slots.innerHTML = item.slot
+        const icon = document.getElementById("maker_base_item_icon")
+        icon.src = maker_base_item.icon
+        const slots = document.getElementById("maker_base_item_slots")
+        slots.innerHTML = maker_base_item.slot
         //null option
         const option = document.createElement('option')
         option.value = -1
         
         // BONUS
-        const bonus = document.getElementById("selected_bonus")
-        bonus.innerText = ""
-        if(Object.keys(item.bonus).length != 0){
-            let keys = Object.keys(item.bonus)
+        const bonus = document.getElementById("maker_base_item_bonus")
+        bonus.innerHTML = ""
+        if(Object.keys(maker_base_item.bonus).length != 0){
+            let keys = Object.keys(maker_base_item.bonus)
             for (let i = 0; i < keys.length; i++) {
                 let el = document.createElement("span")
-                el.innerText = "" + keys[i] + " " + item.bonus[keys[i]]
+                el.innerText = "" + keys[i] + " " + maker_base_item.bonus[keys[i]]
                 el.className = "p-2"
                 bonus.appendChild(el)
             }
         } else {
-            bonus.innerText = "No bonus"
+            bonus.innerHTML = "No bonus"
         }
         // ARMOR
         row_armor_0 = document.getElementById("row_armor_0")
         row_armor_1 = document.getElementById("row_armor_1")
         row_armor_2 = document.getElementById("row_armor_2")
         row_armor_3 = document.getElementById("row_armor_3")
-        if(Object.keys(item.armor).length != 0){
+        if(Object.keys(maker_base_item.armor).length != 0){
             row_armor_0.className = ""
             row_armor_1.className = ""
             row_armor_2.className = ""
             row_armor_3.className = ""
             selected_armor_hp = document.getElementById("selected_armor_hp")
-            selected_armor_hp.innerText = item.armor.hp
+            selected_armor_hp.innerText = maker_base_item.armor.hp
             selected_armor_abs_x = document.getElementById("selected_armor_abs_x")
-            selected_armor_abs_x.innerText = item.armor.abs_x
+            selected_armor_abs_x.innerText = maker_base_item.armor.abs_x
             selected_armor_abs_y = document.getElementById("selected_armor_abs_y")
-            selected_armor_abs_y.innerText = item.armor.abs_y
+            selected_armor_abs_y.innerText = maker_base_item.armor.abs_y
         } else {
             row_armor_0.className = "hidden"
             row_armor_1.className = "hidden"
@@ -113,20 +116,17 @@ function item_selected(index){
         }
         // GILDING
         const affinity = document.getElementById("selected_affinity")
-        const row_chance_min = document.getElementById("base-item-chance_min")
-        const row_chance_max = document.getElementById("base-item-chance_max")
-        const chance_min = document.getElementById("selected_chance_min")
-        const chance_max = document.getElementById("selected_chance_max")
-        if(item.affinity != undefined){
-            affinity.innerHTML = item.affinity
-            chance_min.innerHTML = item.chance_min
-            row_chance_min.className = ""
-            chance_max.innerHTML = item.chance_max
-            row_chance_max.className = ""
+        const maker_base_item_chances = document.getElementById("maker_base_item_gild_chances")
+        const chance_min = document.getElementById("maker_base_item_chance_min")
+        const chance_max = document.getElementById("maker_base_item_chance_max")
+        if(maker_base_item.affinity != undefined){
+            affinity.innerHTML = maker_base_item.affinity
+            maker_base_item_chances.className = ""
+            chance_min.innerHTML = maker_base_item.chance_min
+            chance_max.innerHTML = maker_base_item.chance_max
         } else {            
             affinity.innerHTML = "Not Gildable"
-            row_chance_min.className = "hidden"
-            row_chance_max.className = "hidden"
+            maker_base_item_chances.className = "hidden"
         }
     }
 }
@@ -175,7 +175,7 @@ function filter_gildings_by_affinity(selection){
    let options = []
    let slot = window.localStorage.getItem("selected_slot")
    let selected_item = window.localStorage.getItem("selected_item")
-   let equipment = item_select_options[selected_item]
+   let equipment = maker_item_select_options[selected_item]
    if(equipment.affinity == undefined){
       return options
    }
@@ -204,6 +204,23 @@ function filter_gildings_by_affinity(selection){
    })
    return options
 }
+function maker_add_gilding(index){
+   console.log(index)
+   let item = gilding_option_list[index]
+   for (let i = 0; i < maker_gildings.length; i++) {
+      const element = maker_gildings[i];
+      if(element.name == item.name){
+         return
+      }
+   }
+   maker_gildings.push(item)
+   generate_maker_slots()
+}
+function maker_remove_gilding(index){
+   console.log(index)
+   maker_gildings.splice(index,1)
+   generate_maker_slots()
+}
 
 function generate_gildings_list(){
    const gilding_results = document.getElementById("gilding-results")
@@ -224,16 +241,21 @@ function generate_gildings_list(){
       link.href = item.link
       link.className = "cursor-pointer text-blue-700"
       link.innerText = item.name
+      link.target = "_blank" 
       name.appendChild(link)
       const icon = document.createElement('td')
       const add_button = document.createElement('button')
-      add_button.className = "rounded-full border-black border-2 w-8 h-8"
+      add_button.id = index
+      add_button.addEventListener('click', (event) => {
+         maker_add_gilding(event.target.id)
+      });
+      add_button.className = "rounded-full border-black border-2 w-8 h-8 font-bold"
       add_button.innerText = "+"
       const img = document.createElement("img")
       img.src = item.icon
       icon.appendChild(img)
-      row1.appendChild(name)
       row1.appendChild(icon)
+      row1.appendChild(name)
       row1.appendChild(add_button)
       table.appendChild(row1)
       div.appendChild(table)
@@ -272,6 +294,102 @@ function generate_gildings_list(){
   })
 }
 
+function generate_maker_slots(){
+   let base_min = parseFloat(maker_base_item.chance_min.replace("%","")) / 100
+   let base_max = parseFloat(maker_base_item.chance_max.replace("%","")) / 100
+   console.log(base_min)
+   console.log(base_max)
+   console.log(maker_base_item)
+   console.log(maker_gildings)
+   const maker_slots = document.getElementById("maker_slots")
+   maker_slots.innerHTML = ""
+   for (let i = 0; i < maker_gildings.length; i++) {
+      const gild = maker_gildings[i];
+      let gild_min = parseFloat(gild.chance_min.replace("%","")) / 100
+      let gild_max = parseFloat(gild.chance_max.replace("%","")) / 100
+      console.log(gild_min)
+      console.log(gild_max)
+
+      // container div
+      let div = document.createElement("div")
+      div.id = "maker_slot_" + i
+      let table = document.createElement("table")
+      table.className = "w-full"
+      if(i > 0){
+         let spacer = document.createElement("div")
+         spacer.className = "border-2 h-1"
+         div.appendChild(spacer)
+      }
+      
+      // ROW 1
+      let row1 = document.createElement("tr")
+      let row1_td1 = document.createElement("td")
+      row1_td1.className = "w-1/4"
+      
+      let icon = document.createElement("img")
+      icon.src = gild.icon 
+      row1_td1.appendChild(icon)
+      
+      let row1_td2 = document.createElement("td")
+      row1_td2.className = "1/2"
+      row1_td2.colSpan = "2"
+      
+      let link = document.createElement("a")
+      link.className = "cursor-pointer text-blue-700"
+      link.href = gild.link
+      link.target = "_blank"
+      link.innerHTML = gild.name
+      row1_td2.appendChild(link)
+
+      let row1_td3 = document.createElement("td")
+      let remove_button =  document.createElement("button")
+      remove_button.className = "bg-red-300 rounded-full border-black border-2 w-8 h-8 font-bold"
+      remove_button.innerHTML = "X"
+      remove_button.value = i
+      remove_button.addEventListener('click', (event) => {
+         maker_remove_gilding(event.target.value)
+      });
+      row1_td3.appendChild(remove_button)
+
+      // MOUNT ROW 1
+      row1.appendChild(row1_td1)
+      row1.appendChild(row1_td2)
+      row1.appendChild(row1_td3)
+      
+      // ROW 2
+      let row2 = document.createElement("tr")
+      let row2_td1 = document.createElement("td")
+      row2_td1.className = "font-bold"
+      row2_td1.innerHTML = "Chance to apply:"
+      row2_td1.colSpan = "4"
+      row2.appendChild(row2_td1)
+      
+      // ROW 3
+      
+      let row3 = document.createElement("tr")
+      let row3_td1 = document.createElement("td")
+      row3_td1.innerHTML = "Min:"
+      let row3_td2 = document.createElement("td")
+      row3_td2.innerHTML = ((base_min * gild_min) * 100).toPrecision(2) + "%"
+      let row3_td3 = document.createElement("td")
+      row3_td3.innerHTML = "Max:"
+      let row3_td4 = document.createElement("td")
+      row3_td4.innerHTML = ((base_max * gild_max) * 100).toPrecision(2) + "%"
+      row3.appendChild(row3_td1)
+      row3.appendChild(row3_td2)
+      row3.appendChild(row3_td3)
+      row3.appendChild(row3_td4)
+      // MOUNT
+      table.appendChild(row1)
+      table.appendChild(row2)
+      table.appendChild(row3)
+      div.appendChild(table)
+
+      maker_slots.appendChild(div)
+   }
+   
+}
+
 function script_loaded(){    
     const selected_slot = window.localStorage.getItem("selected_slot")
     const selected_item = window.localStorage.getItem("selected_item")
@@ -295,6 +413,7 @@ function script_loaded(){
     }
     
 }
+
 document.addEventListener("DOMContentLoaded", function() {
     script_loaded()
 });

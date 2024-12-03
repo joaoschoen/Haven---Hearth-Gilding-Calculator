@@ -282,8 +282,8 @@
                 </tbody>
             </table>
         </div>
-        <div id="item_maker" class="flex flex-col border-gray-400 border-2 p-2">
-            <div id="base-item">
+        <div id="item_maker" class="flex flex-col min-w-72 w-full border-gray-400 border-2 p-2">
+            <div id="maker-base-item">
                 <label class="border-2 border-gray-400" for="item-select">Item</label>
                 <select onchange="item_selected(this.value)" id="item-select">
                     <option value="-1">--Please choose a slot--</option>
@@ -297,19 +297,19 @@
                         <td class="w-16" id="selected_slot"></td>
                         <td class="w-16">
                             <div class="flex justify-center items-center w-16 h-16 border-black border-2">
-                                <img class="max-w-16 max-h-16" id="selected_icon" src="" alt="">
+                                <img class="max-w-16 max-h-16" id="maker_base_item_icon" src="" alt="">
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Slots:</td>
-                        <td id="selected_slots" colspan="2"></td>
+                        <td id="maker_base_item_slots" colspan="2"></td>
                     </tr>
                     <tr>
                         <td><h2 class="text-2xl font-bold">Bonus</h2></td>
                     </tr>
                     <tr>
-                        <td colspan="3" id="selected_bonus"></td>
+                        <td colspan="3" id="maker_base_item_bonus"></td>
                     </tr>
                     <tr id="row_armor_0">
                         <td><h2 class="text-2xl font-bold">Armor</h2></td>
@@ -333,17 +333,44 @@
                         <td>Affinity:</td>
                         <td id="selected_affinity" colspan="2"></td>
                     </tr>
-                    <tr id="base-item-chance_min">
+                    <tr id="maker_base_item_gild_chances">
                         <td>Min:</td>
-                        <td id="selected_chance_min"></td>
-                    </tr>
-                    <tr id="base-item-chance_max">
+                        <td id="maker_base_item_chance_min"></td>
                         <td>Max:</td>
-                        <td id="selected_chance_max"></td>
+                        <td id="maker_base_item_chance_max"></td>
                     </tr>
                 </table>
             </div>
             <div class="border-2 h-1" ></div>
+            <h2 class="text-2xl font-bold">Slots</h2>
+            <div id="maker_slots">
+                <div id="maker-slot-1" class="hidden">
+                    <table class="w-full">
+                        <tr>
+                            <td class="w-1/4">
+                                <img src="" alt="?">
+                            </td>
+                            <td colspan="2" class="w-1/2">
+                                <a href="" target="_blank">Name</a>
+                            </td>
+                            <td>
+                                <button class="bg-red-300 rounded-full border-black border-2 w-8 h-8 font-bold">X</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="font-bold">Chance to apply:</td>
+                        </tr>
+                        <tr>
+                            <td>Min:</td>
+                            <td>0%</td>
+                            <td>Max:</td>
+                            <td>0%</td>
+                        </tr>
+                    </table>
+                    <div class="border-2 h-1" ></div>
+                </div>
+            </div>
+            
         </div>
         <div class="flex flex-col border-gray-400 border-2 p-2">
             <h2 class="text-2xl font-bold" >Gilding</h2>
@@ -411,6 +438,7 @@
     <div class="hidden">
         <div class="bg-slate-200"></div>
         <div class="bg-slate-300"></div>
+        <div class="bg-blue-300"></div>
     </div>
 </body>
 </html>
