@@ -148,6 +148,9 @@ function gilding_bonus_filter_selected(bonus){
 }
 // GILDING FILTERS
 function filter_gildings_by_bonus(bonus){
+   if( bonus == "-1"){
+      return gilding_affinity_filter
+   }
    let options = []
    for (let i = 0; i < gilding_affinity_filter.length; i++) {
       const item = gilding_affinity_filter[i];
