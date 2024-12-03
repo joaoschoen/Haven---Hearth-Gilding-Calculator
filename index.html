@@ -346,19 +346,71 @@
             <div class="border-2 h-1" ></div>
         </div>
         <div class="flex flex-col border-gray-400 border-2 p-2">
-            <h2>Affinity</h2>
-            <select onchange="affinity_selected(this.value)" id="affinity-select">
-                <option value="-1">--Please choose an affinity--</option>
-            </select>
-            <div class="border-2 h-1" ></div>
-            <div class="flex flex-col overflow-y-scroll max-h-[80vh]">
-                <div class="">Gildings:</div>
+            <h2 class="text-2xl font-bold" >Gilding</h2>
+            <div class="flex flex-row">
+                <h2 class="text-1xl font-bold">Affinity:</h2>
+                <select onchange="affinity_selected(this.value)" id="affinity-select">
+                    <option value="-1">--Please choose an affinity--</option>
+                    <option value="Agility">Agility</option>
+                    <option value="Carpentry">Carpentry</option>
+                    <option value="Charisma">Charisma</option>
+                    <option value="Constitution">Constitution</option>
+                    <option value="Cooking">Cooking</option>
+                    <option value="Dexterity">Dexterity</option>
+                    <option value="Exploration">Exploration</option>
+                    <option value="Farming">Farming</option>
+                    <option value="Intelligence">Intelligence</option>
+                    <option value="Lore">Lore</option>
+                    <option value="Masonry">Masonry</option>
+                    <option value="Melee">Melee</option>
+                    <option value="Perception">Perception</option>
+                    <option value="Psyche">Psyche</option>
+                    <option value="Sewing">Sewing</option>
+                    <option value="Smithing">Smithing</option>
+                    <option value="Stealth">Stealth</option>
+                    <option value="Strength">Strength</option>
+                    <option value="Survival">Survival</option>
+                    <option value="Unarmed">Unarmed</option>
+                    <option value="Will">Will</option>
+                </select>
+            </div>
+                <div class="flex flex-col overflow-y-scroll max-h-[80vh]">
+                <div class="flex flex-row">
+                    <h2 class="text-1xl font-bold">Bonus:</h2>
+                    <select onchange="gilding_bonus_filter_selected(this.value)" class="w-full" name="filter" id="">
+                        <option value="-1">--Please choose a bonus--</option>
+                        <option value="Agility">Agility</option>
+                        <option value="Carpentry">Carpentry</option>
+                        <option value="Charisma">Charisma</option>
+                        <option value="Constitution">Constitution</option>
+                        <option value="Cooking">Cooking</option>
+                        <option value="Dexterity">Dexterity</option>
+                        <option value="Exploration">Exploration</option>
+                        <option value="Farming">Farming</option>
+                        <option value="Intelligence">Intelligence</option>
+                        <option value="Lore">Lore</option>
+                        <option value="Masonry">Masonry</option>
+                        <option value="Melee">Melee</option>
+                        <option value="Perception">Perception</option>
+                        <option value="Psyche">Psyche</option>
+                        <option value="Sewing">Sewing</option>
+                        <option value="Smithing">Smithing</option>
+                        <option value="Stealth">Stealth</option>
+                        <option value="Strength">Strength</option>
+                        <option value="Survival">Survival</option>
+                        <option value="Unarmed">Unarmed</option>
+                        <option value="Will">Will</option>
+                    </select>
+                </div>
+                <div class="border-2 h-1 mt-1 mb-1" ></div>
                 <div id="gilding-results">
-                   
                 </div>
             </div>
         </div>
     </div>    
-    <div class="hidden"></div>
+    <div class="hidden">
+        <div class="bg-slate-200"></div>
+        <div class="bg-slate-300"></div>
+    </div>
 </body>
 </html>

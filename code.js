@@ -13,6 +13,8 @@ var item_select_options = [{
 },]
 
 var gilding_select_options = []
+var gilding_affinity_filter = []
+var gilding_option_list = []
 
 function generate_options_for_item_select(){
     const item_select = document.getElementById("item-select")
@@ -45,9 +47,10 @@ function filter_equipment_by_slot(selection){
     return options
 }
 
+// SELECTION TRIGGERS
 function slot_selected(selection){
     window.localStorage.setItem("selected_slot",selection)
-    console.log("SELECTED SLOT:",selection)
+   //  console.log("SELECTED SLOT:",selection)
     const selected_slot = document.getElementById("selected_slot")
     selected_slot.innerHTML = selection
 
@@ -57,7 +60,6 @@ function slot_selected(selection){
     })
     generate_options_for_item_select()
 }
-
 
 function item_selected(index){
     window.localStorage.setItem("selected_item",index)
@@ -69,8 +71,6 @@ function item_selected(index){
         icon.src = item.icon
         const slots = document.getElementById("selected_slots")
         slots.innerHTML = item.slot
-        const affinity_selector = document.getElementById("affinity-select")
-        affinity_selector.innerHTML = ""
         //null option
         const option = document.createElement('option')
         option.value = -1
@@ -118,26 +118,11 @@ function item_selected(index){
         const chance_min = document.getElementById("selected_chance_min")
         const chance_max = document.getElementById("selected_chance_max")
         if(item.affinity != undefined){
-            option.textContent = "--Please select an affinity--"
-            affinity_selector.appendChild(option)
-            
-            item.affinity.forEach((value,index) =>{
-                const option = document.createElement('option')
-                console.log(value)
-                option.value = value
-                option.textContent = value
-                affinity_selector.appendChild(option)
-            })
-            for (let i = 0; i < item.affinity.length; i++) {
-                const element = item.affinity[i];
-            }
-
             affinity.innerHTML = item.affinity
             chance_min.innerHTML = item.chance_min
             row_chance_min.className = ""
             chance_max.innerHTML = item.chance_max
             row_chance_max.className = ""
-            
         } else {            
             affinity.innerHTML = "Not Gildable"
             row_chance_min.className = "hidden"
@@ -148,101 +133,140 @@ function item_selected(index){
 
 function affinity_selected(affinity){
     window.localStorage.setItem("selected_affinity",affinity)
-    console.log("SELECTED AFFINITY:",affinity)
-    const gilding_results = document.getElementById("gilding-results")
-    gilding_results.innerHTML = ""
-    gilding_options_list = filter_gildables_by_affinity(affinity)
-    console.log(gilding_options_list)
-    gilding_options_list = gilding_options_list.sort((a,b)=>{
-        return a.name[0] > b.name[0] ? 1 : -1
-    })
-    gilding_options_list.forEach((item,index)=>{
-        const div = document.createElement('div')
-        div.id = index
-        const table = document.createElement('table')
-        const row1 =  document.createElement('tr')
-        const name = document.createElement('td')
-        const link = document.createElement('a')
-        link.href = item.link
-        link.className = "cursor-pointer text-blue-700"
-        link.innerText = item.name
-        name.appendChild(link)
-        const icon = document.createElement('td')
-        const add_button = document.createElement('button')
-        add_button.className = "rounded-full border-black border-2 w-8 h-8"
-        add_button.innerText = "+"
-        const img = document.createElement("img")
-        img.src = item.icon
-        icon.appendChild(img)
-        row1.appendChild(name)
-        row1.appendChild(icon)
-        row1.appendChild(add_button)
-        table.appendChild(row1)
-        div.appendChild(table)
-        const row2 = document.createElement("tr")
-        const gild_1 = document.createElement("td")
-        gild_1.innerText = item.gild_1
-        const gild_2 = document.createElement("td")
-        gild_2.innerText = item.gild_2
-        const gild_3 = document.createElement("td")
-        gild_3.innerText = item.gild_3
-        const gild_4 = document.createElement("td")
-        gild_4.innerText = item.gild_4
-        row2.appendChild(gild_1)
-        row2.appendChild(gild_2)
-        row2.appendChild(gild_3)
-        row2.appendChild(gild_4)
-        table.appendChild(row2)
-        const row3 = document.createElement("tr")
-        const min = document.createElement("td")
-        min.innerText = "Min"
-        const chance_min = document.createElement("td")
-        chance_min.innerText = item.chance_min
-        const max = document.createElement("td")
-        max.innerText = "Max"
-        const chance_max = document.createElement("td")
-        chance_max.innerText = item.chance_max
-        row3.appendChild(min)
-        row3.appendChild(chance_min)
-        row3.appendChild(max)
-        row3.appendChild(chance_max)
-        table.appendChild(row3)
-        const separator = document.createElement("div")
-        separator.className = "border-2 h-1"
-        div.appendChild(separator)
-        gilding_results.appendChild(div)
-    })
+   //  console.log("SELECTED AFFINITY:",affinity)
+    gilding_affinity_filter = filter_gildings_by_affinity(affinity)
+   //  console.log(gilding_affinity_filter)
+   gilding_option_list = gilding_affinity_filter
+   generate_gildings_list()
 }
 
-function filter_gildables_by_affinity(selection){
-    let options = []
-    let slot = window.localStorage.getItem("selected_slot")
-    let selected_item = window.localStorage.getItem("selected_item")
-    let equipment = item_select_options[selected_item]
-    if(equipment.affinity == undefined){
-        return options
-    }
-    for (let i = 0; i < gilds.length; i++) {
-        const item = gilds[i];
-        // Only rings can have gemstones gilded into them
-        if(slot == "7L" || slot == "7R"){
-            if(!item.isGemstone){
-                continue
-            }
-        } else {
-            if(item.isGemstone){
-                continue
-            }
-        }
-        // Affinity alignment
-        for (let j = 0; j < item.affinity.length; j++) {
-            const affinity = item.affinity[j];
-            if(affinity.includes(selection)){
-                    options.push(item)
-            }
-        }
-    }
-    return options
+function gilding_bonus_filter_selected(bonus){
+   window.localStorage.setItem("selected_bonus_filter",bonus)
+   // gilding_affinity_filter
+   gilding_option_list = filter_gildings_by_bonus(bonus)
+   generate_gildings_list()
+}
+// GILDING FILTERS
+function filter_gildings_by_bonus(bonus){
+   let options = []
+   for (let i = 0; i < gilding_affinity_filter.length; i++) {
+      const item = gilding_affinity_filter[i];
+      if(item.gild_1.includes(bonus)){
+         options.push(item)
+      } else if(item.gild_2.includes(bonus)) {
+         options.push(item)
+      } else if(item.gild_3.includes(bonus)) {
+         options.push(item)
+      } else if(item.gild_4.includes(bonus)) {
+         options.push(item)
+      }
+      
+   }
+   options = options.sort((a,b)=>{
+      return a.name[0] > b.name[0] ? 1 : -1
+   })
+   return options
+}
+
+function filter_gildings_by_affinity(selection){
+   let options = []
+   let slot = window.localStorage.getItem("selected_slot")
+   let selected_item = window.localStorage.getItem("selected_item")
+   let equipment = item_select_options[selected_item]
+   if(equipment.affinity == undefined){
+      return options
+   }
+   for (let i = 0; i < gilds.length; i++) {
+      const item = gilds[i];
+      // Only rings can have gemstones gilded into them
+      if(slot == "7L" || slot == "7R"){
+         if(!item.isGemstone){
+               continue
+         }
+      } else {
+         if(item.isGemstone){
+               continue
+         }
+      }
+      // Affinity alignment
+      for (let j = 0; j < item.affinity.length; j++) {
+         const affinity = item.affinity[j];
+         if(affinity.includes(selection)){
+                  options.push(item)
+         }
+      }
+   }
+   options = options.sort((a,b)=>{
+      return a.name[0] > b.name[0] ? 1 : -1
+   })
+   return options
+}
+
+function generate_gildings_list(){
+   const gilding_results = document.getElementById("gilding-results")
+   gilding_results.innerHTML = ""
+   gilding_option_list.forEach((item,index)=>{
+      const div = document.createElement('div')
+      div.id = index
+      const table = document.createElement('table')
+      if(index % 2 == 0){
+          div.className="bg-slate-200"                  
+      } else {
+          div.className="bg-slate-300"                     
+      }
+      table.className = ""
+      const row1 =  document.createElement('tr')
+      const name = document.createElement('td')
+      const link = document.createElement('a')
+      link.href = item.link
+      link.className = "cursor-pointer text-blue-700"
+      link.innerText = item.name
+      name.appendChild(link)
+      const icon = document.createElement('td')
+      const add_button = document.createElement('button')
+      add_button.className = "rounded-full border-black border-2 w-8 h-8"
+      add_button.innerText = "+"
+      const img = document.createElement("img")
+      img.src = item.icon
+      icon.appendChild(img)
+      row1.appendChild(name)
+      row1.appendChild(icon)
+      row1.appendChild(add_button)
+      table.appendChild(row1)
+      div.appendChild(table)
+      const row2 = document.createElement("tr")
+      const gild_1 = document.createElement("td")
+      gild_1.innerText = item.gild_1
+      const gild_2 = document.createElement("td")
+      gild_2.innerText = item.gild_2
+      const gild_3 = document.createElement("td")
+      gild_3.innerText = item.gild_3
+      const gild_4 = document.createElement("td")
+      gild_4.innerText = item.gild_4
+      row2.appendChild(gild_1)
+      row2.appendChild(gild_2)
+      row2.appendChild(gild_3)
+      row2.appendChild(gild_4)
+      table.appendChild(row2)
+      const row3 = document.createElement("tr")
+      const min = document.createElement("td")
+      min.innerText = "Min"
+      const chance_min = document.createElement("td")
+      chance_min.innerText = item.chance_min
+      const max = document.createElement("td")
+      max.innerText = "Max"
+      const chance_max = document.createElement("td")
+      chance_max.innerText = item.chance_max
+      row3.appendChild(min)
+      row3.appendChild(chance_min)
+      row3.appendChild(max)
+      row3.appendChild(chance_max)
+      table.appendChild(row3)
+      const separator = document.createElement("div")
+      separator.className = "border-2 h-1"
+      div.appendChild(separator)
+      gilding_results.appendChild(div)
+  })
 }
 
 function script_loaded(){    
