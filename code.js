@@ -658,7 +658,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Bear_Cape",
       "name": "Bear Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {
          "str": "6"
@@ -1009,7 +1009,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Cave_Angler_Cape",
       "name": "Cave Angler Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {
          "str": "2",
@@ -2202,7 +2202,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Lynx_Cape",
       "name": "Lynx Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {
          "agi": "4"
@@ -2738,7 +2738,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Ranger%27s_Cape",
       "name": "Ranger's Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {},
       "armor": {},
@@ -2807,7 +2807,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Raven",
       "name": "Raven",
       "slot": [
-         "??"
+         "?"
       ],
       "bonus": {},
       "armor": {}
@@ -2835,7 +2835,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Reindeer_Cape",
       "name": "Reindeer Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {
          "agi": "2"
@@ -2980,7 +2980,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Seer%27s_Hood",
       "name": "Seer's Hood",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {},
       "armor": {}
@@ -3386,7 +3386,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Walrus_Cape",
       "name": "Walrus Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {
          "str": "1",
@@ -3515,7 +3515,7 @@ var equipment = [
       "link": "https://ringofbrodgar.com/wiki/Wolf_Cape",
       "name": "Wolf Cape",
       "slot": [
-         "1L and 9L"
+         "1L and 10L"
       ],
       "bonus": {
          "str": "4",
