@@ -132,29 +132,35 @@ function item_selected(index){
     }
 }
 
-function affinity_selected(affinity){
-    window.localStorage.setItem("selected_affinity",affinity)
-   //  console.log("SELECTED AFFINITY:",affinity)
-    gilding_affinity_filter = filter_gildings_by_affinity(affinity)
-   //  console.log(gilding_affinity_filter)
-   gilding_option_list = gilding_affinity_filter
-   generate_gildings_list()
+function gilding_affinity_filter_selected(affinity){
+   window.localStorage.setItem("selected_affinity_filter",affinity)
+   filter_gildings()
 }
 
 function gilding_bonus_filter_selected(bonus){
    window.localStorage.setItem("selected_bonus_filter",bonus)
-   // gilding_affinity_filter
-   gilding_option_list = filter_gildings_by_bonus(bonus)
+   filter_gildings()
+}
+
+function filter_gildings(){
+   let affinity = window.localStorage.getItem("selected_affinity_filter")
+   let bonus = window.localStorage.getItem("selected_bonus_filter")
+   if(affinity == "-1" || affinity == null || affinity == undefined){
+      gilding_option_list = gilds
+   } else {
+      gilding_option_list = filter_gildings_by_affinity(affinity)
+   }
+   if(bonus != -1){
+      gilding_option_list = filter_gildings_by_bonus(bonus)
+   }
+   
    generate_gildings_list()
 }
 // GILDING FILTERS
 function filter_gildings_by_bonus(bonus){
-   if( bonus == "-1"){
-      return gilding_affinity_filter
-   }
    let options = []
-   for (let i = 0; i < gilding_affinity_filter.length; i++) {
-      const item = gilding_affinity_filter[i];
+   for (let i = 0; i < gilding_option_list.length; i++) {
+      const item = gilding_option_list[i];
       if(item.gild_1.includes(bonus)){
          options.push(item)
       } else if(item.gild_2.includes(bonus)) {
@@ -164,7 +170,6 @@ function filter_gildings_by_bonus(bonus){
       } else if(item.gild_4.includes(bonus)) {
          options.push(item)
       }
-      
    }
    options = options.sort((a,b)=>{
       return a.name[0] > b.name[0] ? 1 : -1
@@ -174,29 +179,14 @@ function filter_gildings_by_bonus(bonus){
 
 function filter_gildings_by_affinity(selection){
    let options = []
-   let slot = window.localStorage.getItem("selected_slot")
-   let selected_item = window.localStorage.getItem("selected_item")
-   let equipment = maker_item_select_options[selected_item]
-   if(equipment.affinity == undefined){
-      return options
-   }
    for (let i = 0; i < gilds.length; i++) {
       const item = gilds[i];
-      // Only rings can have gemstones gilded into them
-      if(slot == "7L" || slot == "7R"){
-         if(!item.isGemstone){
-               continue
-         }
-      } else {
-         if(item.isGemstone){
-               continue
-         }
-      }
       // Affinity alignment
       for (let j = 0; j < item.affinity.length; j++) {
          const affinity = item.affinity[j];
          if(affinity.includes(selection)){
-                  options.push(item)
+            options.push(item)
+            break
          }
       }
    }
@@ -205,8 +195,8 @@ function filter_gildings_by_affinity(selection){
    })
    return options
 }
+
 function maker_add_gilding(index){
-   console.log(index)
    let item = gilding_option_list[index]
    for (let i = 0; i < maker_gildings.length; i++) {
       const element = maker_gildings[i];
@@ -217,8 +207,8 @@ function maker_add_gilding(index){
    maker_gildings.push(item)
    generate_maker_slots()
 }
+
 function maker_remove_gilding(index){
-   console.log(index)
    maker_gildings.splice(index,1)
    generate_maker_slots()
 }
@@ -438,25 +428,30 @@ function generate_maker_slots(){
 function script_loaded(){    
     const selected_slot = window.localStorage.getItem("selected_slot")
     const selected_item = window.localStorage.getItem("selected_item")
-    const selected_affinity = window.localStorage.getItem("selected_affinity")
+    const storage_affinity = window.localStorage.getItem("selected_affinity_filter")
+    const storage_bonus = window.localStorage.getItem("selected_bonus_filter")
     console.log("load selected_slot:",selected_slot)
     console.log("load selected_item:",selected_item)
-    console.log("load selected_affinity:",selected_affinity)
+    console.log("load selected_affinity:",storage_affinity)
     if(selected_slot != null){
         slot_selected(selected_slot)
         if(selected_item != null && selected_item != "-1"){
             const item_select = document.getElementById("item-select")
             item_select.value = selected_item
             item_selected(selected_item)
-            if(selected_affinity != null){
-                const affinity_select = document.getElementById("affinity-select")
-                affinity_select.value = selected_affinity
-                affinity_selected(selected_affinity)
-                
-            }
+            
         }
     }
-    
+    if(storage_affinity != null){
+      let select = document.getElementById("affinity-select")
+      select.value = storage_affinity
+    }
+    if(storage_bonus != null){
+      let select = document.getElementById("bonus-select")
+      select.value = storage_bonus
+    }
+    "bonus-select"
+    filter_gildings()
 }
 
 document.addEventListener("DOMContentLoaded", function() {
