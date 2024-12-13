@@ -1,7 +1,8 @@
 # Haven Planner
 
-This is going to be a simple planner for looking up what gildings you could use based on the item you're trying to gild
+This project is a simple planner for looking up items and gildings to plan what gear you want to make and seek out, it has links to the wiki and information on what attributes and skills the items boost
 
+[Click here to go to the page for the tool](https://joaoschoen.github.io/Haven-Planer/)
 
 > [!WARNING]
 > By the nature of how I made this tool to be as simple as possible it is bound to become outdated and have old information, I'll happily update the data if it is brought to my attention, if you find any data that doesn't match the wiki contact me and I'll update it as soon as possible
