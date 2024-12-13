@@ -219,51 +219,83 @@ function generate_gildings_list(){
    gilding_option_list.forEach((item,index)=>{
       const div = document.createElement('div')
       div.id = index
-      const table = document.createElement('table')
       if(index % 2 == 0){
           div.className="bg-slate-200"                  
       } else {
           div.className="bg-slate-300"                     
       }
-      table.className = ""
-      const row1 =  document.createElement('tr')
-      const name = document.createElement('td')
+      div.className = div.className + " flex flex-col"
+
+      // HEADING
+      const div_item_heading = document.createElement('div')
+      div_item_heading.className = "flex flex-row items-center w-full"
+
+      const img = document.createElement("img")
+      img.src = item.icon
+      
       const link = document.createElement('a')
       link.href = item.link
-      link.className = "cursor-pointer text-blue-700"
-      link.innerText = item.name
+      link.className = "cursor-pointer text-blue-700 flex flex-row items-center"
       link.target = "_blank" 
-      name.appendChild(link)
-      const icon = document.createElement('td')
+
+      const name = document.createElement("p")
+      name.innerText = item.name
+
       const add_button = document.createElement('button')
       add_button.id = index
       add_button.addEventListener('click', (event) => {
          maker_add_gilding(event.target.id)
       });
-      add_button.className = "rounded-full border-black border-2 w-8 h-8 font-bold"
+      add_button.className = "rounded-full border-black border-2 w-8 h-8 font-bold ml-auto"
       add_button.innerText = "+"
-      const img = document.createElement("img")
-      img.src = item.icon
-      icon.appendChild(img)
-      row1.appendChild(icon)
-      row1.appendChild(name)
-      row1.appendChild(add_button)
-      table.appendChild(row1)
-      div.appendChild(table)
-      const row2 = document.createElement("tr")
+
+      link.appendChild(img)
+      link.appendChild(name)
+
+      div_item_heading.appendChild(link)
+      div_item_heading.appendChild(add_button)
+
+      // BONUS TABLE
+      const h2_bonus = document.createElement('h2')
+      h2_bonus.innerHTML = "Bonus"
+      h2_bonus.className = "text-1xl font-bold"
+
+      const bonus_table = document.createElement('table')
+      bonus_table.className = ""
+
+      const row1 = document.createElement("tr")
       const gild_1 = document.createElement("td")
       gild_1.innerText = item.gild_1
+
       const gild_2 = document.createElement("td")
       gild_2.innerText = item.gild_2
+
       const gild_3 = document.createElement("td")
       gild_3.innerText = item.gild_3
+
       const gild_4 = document.createElement("td")
       gild_4.innerText = item.gild_4
-      row2.appendChild(gild_1)
-      row2.appendChild(gild_2)
-      row2.appendChild(gild_3)
-      row2.appendChild(gild_4)
-      table.appendChild(row2)
+
+      row1.appendChild(gild_1)
+      row1.appendChild(gild_2)
+      row1.appendChild(gild_3)
+      row1.appendChild(gild_4)
+      bonus_table.appendChild(row1)
+     
+      // AFFINITY
+      const h2_affinity = document.createElement('h2')
+      h2_affinity.innerHTML = "Affinity"
+      h2_affinity.className = "text-1xl font-bold"
+
+      const affinity = document.createElement('p')
+      affinity.innerHTML = item.affinity
+
+      // CHANCE
+      const h2_chance = document.createElement('h2')
+      h2_chance.innerHTML = "Chance"
+      h2_chance.className = "text-1xl font-bold"
+
+      const chance_table = document.createElement("table")
       const row3 = document.createElement("tr")
       const min = document.createElement("td")
       min.innerText = "Min"
@@ -277,9 +309,20 @@ function generate_gildings_list(){
       row3.appendChild(chance_min)
       row3.appendChild(max)
       row3.appendChild(chance_max)
-      table.appendChild(row3)
+      chance_table.appendChild(row3)
+
+      // SEPARATOR
       const separator = document.createElement("div")
       separator.className = "border-2 h-1"
+
+      // BUILDING FULL COMPONENT
+      div.appendChild(div_item_heading)
+      div.appendChild(h2_bonus)
+      div.appendChild(bonus_table)
+      div.appendChild(h2_affinity)
+      div.appendChild(affinity)
+      div.appendChild(h2_chance)
+      div.appendChild(chance_table)
       div.appendChild(separator)
       gilding_results.appendChild(div)
   })
